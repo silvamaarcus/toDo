@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+:root {
+  font-family: var(--default-font-family);
+
+  /* color-scheme: light dark; */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@theme {
+  --default-font-family: "Josefin Sans", sans-serif;
+
+  --color-primary-bright-blue: hsl(220, 98%, 61%);
+
+  /* Light Theme */
+  --color-light-very-light-gray: hsl(0, 0%, 98%);
+  --color-light-very-light-grayish-blue: hsl(236, 33%, 92%);
+  --color-light-light-grayish-blue: hsl(233, 11%, 84%);
+  --color-light-dark-grayish-blue: hsl(236, 9%, 61%);
+  --color-light-very-dark-grayish-blue: hsl(235, 19%, 35%);
+
+  /* Dark Theme */
+  --color-dark-very-dark-blue: hsl(235, 21%, 11%);
+  --color-dark-very-dark-desaturated-blue: hsl(235, 24%, 19%);
+  --color-dark-light-grayish-blue: hsl(234, 39%, 85%);
+  --color-dark-light-grayish-blue-hover: hsl(236, 33%, 92%);
+  --color-dark-dark-grayish-blue: hsl(234, 11%, 52%);
+  --color-dark-very-dark-grayish-blue: hsl(233, 14%, 35%);
+  --color-dark-very-darker-grayish-blue: hsl(237, 14%, 26%);
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+}
+body.light-theme {
+  background-color: var(--color-light-very-light-gray);
+}
+body.dark-theme {
+  background-color: var(--color-dark-very-dark-blue);
+}
+
+.custom-container {
+  @apply mx-auto max-w-[1440px] px-4 sm:px-0;
+}
+
+.invsible-grid {
+  @apply hidden sm:block;
+}
+
+.task input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  appearance: none;
+  border: 1px solid var(--color-light-dark-grayish-blue);
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+
+.task input[type="checkbox"]:checked {
+  background: linear-gradient(
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  ) !important;
+  border: none;
+}
+
+.task input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url("/images/icon-check.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
+.task input[type="checkbox"]:checked + span {
+  text-decoration: line-through;
+  color: var(--color-dark-dark-grayish-blue);
+}
