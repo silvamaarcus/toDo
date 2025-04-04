@@ -1,54 +1,58 @@
-# React + TypeScript + Vite
+# Frontend Mentor - Todo app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a challenge from [Frontend Mentor](https://www.frontendmentor.io), the goal is to build out this todo app and get it looking as close to the design as possible.
 
-Currently, two official plugins are available:
+## 🚀 Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** (Created with Vite)
+- **TypeScript**
+- **Tailwind CSS** for styling
+- **Zustand** for global state management
+- **Netlify** for deployment
 
-## Expanding the ESLint configuration
+## 📌 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- View the optimal layout for the app depending on their device's screen size
+- See hover states for all interactive elements on the page
+- Add new todos to the list
+- Mark todos as complete
+- Delete todos from the list
+- Filter by all/active/complete todos
+- Clear all completed todos
+- Toggle light and dark mode
+- Drag and drop to reorder items on the list
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 💡 Learnings
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This project was a great opportunity to learn and practice the following concepts: for Drag and Drop I used the [react-dnd](https://github.com/react-dnd/react-dnd) library.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 📦 How to Run the Project Locally
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/silvamaarcus/toDo.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd rest-countries
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+The project will be available at `http://localhost:5173/`.
+
+## 🚀 Deployment
+
+The project is available online via Vercel:
+[🔗 Access here](https://todolist-silvamaarcus.netlify.app/)
+
+## 📄 License
+
+This project is open-source and is licensed under the MIT license.
