@@ -1,13 +1,37 @@
-import { useThemeSwitcher } from "../stores/useThemeSwitcher";
+// Images
+import Logo from "/images/logo.svg";
+
+// Components
 import { ThemeSwitcher } from "../components/ThemeSwitcher";
 import { Input } from "../components/ui/Input";
-import Logo from "/images/logo.svg";
+import { Button } from "../components/ui/Button";
+import { CheckboxTask } from "../components/CheckboxTask";
 
 // Icons
 import { Circle } from "lucide-react";
-import { Button } from "../components/ui/Button";
-import { CheckboxTask } from "../components/CheckboxTask";
+
+// Types
 import { useState, KeyboardEvent } from "react";
+import { useThemeSwitcher } from "../stores/useThemeSwitcher";
+
+// Drag and Drop
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface Task {
   id: number;
@@ -15,10 +39,49 @@ interface Task {
   completed: boolean;
 }
 
+// Componente Sortable para cada tarefa
+const SortableTask = ({
+  task,
+  toggleTaskCompletion,
+  deleteTask,
+}: {
+  task: Task;
+  toggleTaskCompletion: (id: number) => void;
+  deleteTask: (id: number) => void;
+}) => {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: task.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+      <CheckboxTask
+        checked={task.completed}
+        onChange={() => toggleTaskCompletion(task.id)}
+        onDelete={() => deleteTask(task.id)}
+      >
+        {task.text}
+      </CheckboxTask>
+    </div>
+  );
+};
+
 export const HomePage = () => {
   const { theme } = useThemeSwitcher();
   const [inputValue, setInputValue] = useState("");
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  // Configurar sensores para drag and drop
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
 
   const handleAddTask = () => {
     if (inputValue.trim() !== "") {
@@ -50,6 +113,20 @@ export const HomePage = () => {
     setTasks(tasks.filter((task) => task.id !== taskId));
   };
 
+  // Função para lidar com o fim do drag and drop
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      setTasks((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+  };
+
   return (
     <>
       <section className="z-10 pt-16">
@@ -76,18 +153,27 @@ export const HomePage = () => {
                 <div
                   className={`w-full rounded shadow-lg ${theme === "light" ? "bg-white" : "bg-dark-very-dark-desaturated-blue"}`}
                 >
-                  {/* RENDERIZAR TASKS */}
-                  {tasks.map((task) => (
-                    <div key={task.id}>
-                      <CheckboxTask
-                        checked={task.completed}
-                        onChange={() => toggleTaskCompletion(task.id)}
-                        onDelete={() => deleteTask(task.id)}
-                      >
-                        {task.text}
-                      </CheckboxTask>
-                    </div>
-                  ))}
+                  {/* RENDERIZAR TASKS COM DRAG AND DROP */}
+                  <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    onDragEnd={handleDragEnd}
+                  >
+                    <SortableContext
+                      items={tasks.map((task) => task.id)}
+                      strategy={verticalListSortingStrategy}
+                    >
+                      {tasks.map((task) => (
+                        <SortableTask
+                          key={task.id}
+                          task={task}
+                          toggleTaskCompletion={toggleTaskCompletion}
+                          deleteTask={deleteTask}
+                        />
+                      ))}
+                    </SortableContext>
+                  </DndContext>
+
                   {/* Footer */}
                   <div className="flex items-center justify-between gap-4 px-6 py-4">
                     <span

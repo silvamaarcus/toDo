@@ -18,7 +18,7 @@ export const CheckboxTask = ({
 
   return (
     <section
-      className={`w-full border-b ${theme === "light" ? "border-gray-300" : "border-gray-600"} px-6 py-4`}
+      className={`w-full cursor-grab border-b ${theme === "light" ? "hover:bg-light-very-light-grayish-blue border-gray-300" : "hover:bg-dark-very-dark-grayish-blue border-gray-600"} px-6 py-4`}
     >
       <div className="flex items-center justify-between">
         <div className="task flex gap-4">
