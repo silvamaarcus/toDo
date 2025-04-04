@@ -143,7 +143,7 @@ export const HomePage = () => {
               <div className="mt-16">
                 <Input
                   placeholder="Create a new todo..."
-                  icon={<Circle className="opacity-25" strokeWidth={1} />}
+                  icon={<Circle className="opacity-25" strokeWidth={2} color="var(--color-gray-600)" />}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
