@@ -137,13 +137,18 @@ export const HomePage = () => {
             <div className="col-span-12 sm:col-span-6">
               <div className="flex items-center justify-between">
                 <img src={Logo} alt="ToDo" />
-
                 <ThemeSwitcher />
               </div>
               <div className="mt-16">
                 <Input
                   placeholder="Create a new todo..."
-                  icon={<Circle className="opacity-25" strokeWidth={2} color="var(--color-gray-600)" />}
+                  icon={
+                    <Circle
+                      className="opacity-25"
+                      strokeWidth={2}
+                      color="var(--color-gray-600)"
+                    />
+                  }
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
@@ -182,7 +187,8 @@ export const HomePage = () => {
                       {tasks.filter((task) => !task.completed).length} items
                       left
                     </span>
-                    <div className="flex items-center gap-4">
+                    {/* Filter for Desktop */}
+                    <div className="hidden sm:flex items-center gap-4">
                       <Button onClick={() => setTasks(tasks)}>All</Button>
                       <Button
                         onClick={() =>
@@ -211,6 +217,27 @@ export const HomePage = () => {
                   </div>
                 </div>
               </div>
+              {/* Filter for Mobile */}
+              <div
+                className={`mt-10 flex items-center justify-center gap-4 rounded py-4 shadow-lg sm:hidden ${theme === "light" ? "text-dark-very-dark-desaturated-blue bg-white" : "text-light-very-light-grayish-blue bg-dark-very-dark-desaturated-blue"}`}
+              >
+                <Button onClick={() => setTasks(tasks)}>All</Button>
+                <Button
+                  onClick={() =>
+                    setTasks(tasks.filter((task) => !task.completed))
+                  }
+                >
+                  Active
+                </Button>
+                <Button
+                  onClick={() =>
+                    setTasks(tasks.filter((task) => task.completed))
+                  }
+                >
+                  Completed
+                </Button>
+              </div>
+
               <h1
                 className={`mt-16 text-center ${theme === "light" ? "text-dark-very-dark-desaturated-blue" : "text-light-very-light-grayish-blue"}`}
               >
