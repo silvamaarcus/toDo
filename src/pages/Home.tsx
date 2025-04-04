@@ -74,7 +74,7 @@ export const HomePage = () => {
               </div>
               <div className="mt-9">
                 <div
-                  className={`w-full rounded shadow-lg ${theme === "light" ? "bg-light-very-light-gray" : "bg-dark-very-dark-desaturated-blue"}`}
+                  className={`w-full rounded shadow-lg ${theme === "light" ? "bg-white" : "bg-dark-very-dark-desaturated-blue"}`}
                 >
                   {/* RENDERIZAR TASKS */}
                   {tasks.map((task) => (
@@ -97,9 +97,21 @@ export const HomePage = () => {
                       left
                     </span>
                     <div className="flex items-center gap-4">
-                      <Button>All</Button>
-                      <Button>Active</Button>
-                      <Button>Completed</Button>
+                      <Button onClick={() => setTasks(tasks)}>All</Button>
+                      <Button
+                        onClick={() =>
+                          setTasks(tasks.filter((task) => !task.completed))
+                        }
+                      >
+                        Active
+                      </Button>
+                      <Button
+                        onClick={() =>
+                          setTasks(tasks.filter((task) => task.completed))
+                        }
+                      >
+                        Completed
+                      </Button>
                     </div>
                     <div>
                       <Button

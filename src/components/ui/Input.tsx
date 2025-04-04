@@ -33,7 +33,7 @@ export const Input = ({
         placeholder={placeholder}
         className={`w-full rounded ${
           theme === "light"
-            ? "bg-light-very-light-grayish-blue text-dark-very-dark-desaturated-blue"
+            ? "bg-white text-dark-very-dark-desaturated-blue"
             : "bg-dark-very-dark-desaturated-blue text-light-very-light-grayish-blue"
         } ${icon ? "pl-16" : "px-6"} py-4 ${className}`}
         value={value}
